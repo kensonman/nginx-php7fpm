@@ -10,6 +10,7 @@ Usage
 1. Download or Clone the Dockerfile into local;
 2. Execute the belows command in terminals:
 
+
       cd nginx-php7fpm
       docker build --build-arg UID=$UID --build-arg GID=`id -g` --build-arg USERNAME=`whoami` -t nginx-php7fpm .
 
