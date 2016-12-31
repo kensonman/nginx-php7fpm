@@ -17,6 +17,7 @@ RUN \
 && useradd -u ${UID} -g ${GID} -M -d /home/${USERNAME} ${USERNAME} \
 && echo ">>> Generating the startup scripts..." \
 && echo "#!/bin/bash" > /startup \
+&& echo "echo \"Container Homepage: https://github.com/kensonman/nginx-php7fpm\"" >> /startup \
 && echo "/usr/bin/nginx -g \"daemon off;\" &" >> /startup \
 && echo "/usr/bin/php-fpm" >> /startup \
 && chown ${USERNAME}:${USERNAME} /startup \
