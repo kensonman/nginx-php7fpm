@@ -5,6 +5,12 @@ Introduction
 ----
 This is the simple Dockerfile to build a image that with Nginx and PHP7-FPM daemon support.
 
+
+The Nginx is base on the [offical docker image](https://hub.docker.com/_/nginx).
+
+
+The PHP was installed by [Dotdeb](https://www.dotdeb.org).
+
 Usage
 ----
 1. Download or Clone the Dockerfile into local;
