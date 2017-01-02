@@ -26,6 +26,24 @@ Build Arguments
 * GID: The daemon execution user's group id; default is 1000
 * USERNAME: The daemon execution user name; default is thisuser
 
+Extra PHP Module
+----
+The container installed the belows modules:
+* php7.0-fpm 
+* php7.0-gd 
+* php7.0-curl 
+* php7.0-mysql 
+* php7.0-imap 
+* php-pear 
+
+If you need to install extra php module, simply create the docker-file as belows:
+
+
+        FROM kensonman/nginx-php7fpm:latest
+        RUN apt update \
+        && apt install -y <php-extra-modules>
+
+
 Homepage
 ----
 https://github.com/kensonman/nginx-php7fpm

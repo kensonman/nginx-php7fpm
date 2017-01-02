@@ -19,6 +19,7 @@ RUN \
 && apt install -y php7.0-fpm php7.0-gd php7.0-curl php7.0-mysql php7.0-imap php-pear \
 && echo ">>> Configuring nginx and php..." \
 && sed -i '11atry_files $uri $uri/ /index.php;' /etc/nginx/conf.d/default.conf \
+&& sed -i 's/^\(\s\+\)\(index\)/\1\2 index.php/' /etc/nginx/conf.d/default.conf \
 && sed -i '04aroot /usr/share/nginx/html;' /etc/nginx/conf.d/default.conf \
 && sed -i '44a}' /etc/nginx/conf.d/default.conf \
 && sed -i '44a        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;' /etc/nginx/conf.d/default.conf \
@@ -35,8 +36,8 @@ RUN \
 && echo ">>> Generating the startup scripts..." \
 && echo "#!/bin/bash" > /startup \
 && echo "echo \"Container Homepage: https://github.com/kensonman/nginx-php7fpm\"" >> /startup \
-&& echo "/usr/sbin/nginx -g \"daemon off;\" &" >> /startup \
-&& echo "/usr/sbin/php-fpm7.0 -F" >> /startup \
+&& echo "/usr/sbin/php-fpm7.0 -D" >> /startup \
+&& echo "/usr/sbin/nginx -g \"daemon off;\"" >> /startup \
 && chown ${USERNAME}:${USERNAME} /startup \
 && chmod +x /startup \
 && echo ">>> Finishing..."
