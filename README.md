@@ -1,6 +1,10 @@
 Nginx-PHP7FPM
 =====
 
+Homepage
+----
+https://github.com/kensonman/nginx-php7fpm
+
 Introduction
 ----
 This is the simple Dockerfile to build a image that with Nginx and PHP7-FPM daemon support.
@@ -20,12 +24,6 @@ Usage
         cd nginx-php7fpm
         docker build --build-arg UID=$UID --build-arg GID=`id -g` --build-arg USERNAME=`whoami` -t nginx-php7fpm .
 
-Build Arguments
-----
-* UID: The daemon execution user id; default is 1000
-* GID: The daemon execution user's group id; default is 1000
-* USERNAME: The daemon execution user name; default is thisuser
-
 Extra PHP Module
 ----
 The container installed the belows modules:
@@ -43,7 +41,9 @@ If you need to install extra php module, simply create the docker-file as belows
         RUN apt update \
         && apt install -y <php-extra-modules>
 
-
-Homepage
+Build Arguments
 ----
-https://github.com/kensonman/nginx-php7fpm
+* UID: The daemon execution user id; default is 1000
+* GID: The daemon execution user's group id; default is 1000
+* USERNAME: The daemon execution user name; default is thisuser
+
