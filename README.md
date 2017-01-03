@@ -41,6 +41,12 @@ If you need to install extra php module, simply create the docker-file as belows
         RUN apt update \
         && apt install -y <php-extra-modules>
 
+Then execute the build command like this:
+
+
+	cd <docker-file directory>
+	docker build -t newTag .
+
 Build Arguments
 ----
 * UID: The daemon execution user id; default is 1000
