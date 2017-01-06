@@ -52,6 +52,6 @@ RUN \
 && echo ">>> Finishing..."
 
 #USER ${USERNAME}
-EXPOSE 80, 443, 30000-30100:30000-30100/tcp
+EXPOSE 80, 443, 30000-30010:30000-30010/tcp
 WORKDIR /usr/share/nginx/html
 CMD "/startup"
