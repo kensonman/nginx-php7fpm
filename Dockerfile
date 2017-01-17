@@ -17,7 +17,7 @@ RUN \
 && wget -O - https://www.dotdeb.org/dotdeb.gpg | apt-key add - \
 && apt update \
 && echo ">>> Installing the php extension..." \
-&& apt install -y php7.0-fpm php7.0-gd php7.0-curl php7.0-mysql php7.0-imap php-pear \
+&& apt install -y php7.0-fpm php7.0-gd php7.0-curl php7.0-mysql php7.0-imap php-pear postfix \
 && echo ">>> Configuring nginx and php..." \
 && sed -i '11atry_files $uri $uri/ /index.php;' /etc/nginx/conf.d/default.conf \
 && sed -i 's/^\(\s\+\)\(index\)/\1\2 index.php/' /etc/nginx/conf.d/default.conf \
@@ -49,6 +49,7 @@ RUN \
 && echo "echo \"Container Homepage: https://github.com/kensonman/nginx-php7fpm\"" >> /startup \
 && echo "/usr/sbin/vsftpd &" >> /startup \
 && echo "/usr/sbin/php-fpm7.0 -D" >> /startup \
+&& echo "/usr/sbin/service postfix start" >> /startup \
 && echo "/usr/sbin/nginx -g \"daemon off;\"" >> /startup \
 && chown ${USERNAME}:${USERNAME} /startup \
 && chmod +x /startup \
