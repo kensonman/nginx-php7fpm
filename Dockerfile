@@ -42,6 +42,8 @@ RUN \
 && sed -i -e "\$apasv_min_port=30000" /etc/vsftpd.conf \
 && sed -i -e "\$apasv_max_port=30010" /etc/vsftpd.conf \
 && setcap 'cap_net_bind_service=+ep' /usr/sbin/nginx \
+&& sed -i "s/^user nginx/user ${USERNAME}/g" nginx.conf \
+&& sed -i "s/^user = www-data$/user = ${USERNAME}/g" www.conf \
 && echo ">>> Generating the startup scripts..." \
 && echo "#!/bin/bash" > /startup \
 && echo "echo \"Container Homepage: https://github.com/kensonman/nginx-php7fpm\"" >> /startup \
