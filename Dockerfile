@@ -2,7 +2,7 @@ FROM nginx:latest
 MAINTAINER Kenson Man <kenson@kenson.idv.hk>
 ENV UID=1000
 ENV GID=1000
-ENV USERNAME=thisuser
+ENV USERNAME=webmaster
 ENV PASSWD=zF9e27nBCAM55gZkhKWGehDf
 
 RUN \
@@ -31,12 +31,13 @@ RUN \
 && sed -i '44alocation ~* \.php$ {' /etc/nginx/conf.d/default.conf \
 && echo ">>> Creating the user<${USERNAME}::${UID}> and group<${GID}> for ftp..."  \
 && groupadd -g ${GID} ${USERNAME} \
-&& useradd -u ${UID} -g ${GID} -M -d /home/${USERNAME} ${USERNAME} \
+&& useradd -u ${UID} -g ${GID} -M -d /usr/share/nginx/html ${USERNAME} \
 && echo "${USERNAME}:${PASSWD}" | chpasswd \
 && mkdir -p /home/${USERNAME} \
 && ln -s /usr/share/nginx/html /home/${USERNAME}/html \
 && chown -R ${USERNAME}:${USERNAME} /home/${USERNAME} \
 && adduser ${USERNAME} www-data \
+&& mkdir -p /var/run/vsftpd/empty \
 && sed -i -e "\$apasv_enable=Yes" /etc/vsftpd.conf \
 && sed -i -e "\$apasv_min_port=30000" /etc/vsftpd.conf \
 && sed -i -e "\$apasv_max_port=30010" /etc/vsftpd.conf \
@@ -54,4 +55,4 @@ RUN \
 #USER ${USERNAME}
 EXPOSE 80, 443, 30000-30100:30000-30100/tcp
 WORKDIR /usr/share/nginx/html
-CMD "/startup"
+CMD ["/startup", ]

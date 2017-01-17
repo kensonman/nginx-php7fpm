@@ -49,7 +49,7 @@ Then execute the build command like this:
 
 Build Arguments
 ----
-* UID: The daemon execution user id; default is 1000
-* GID: The daemon execution user's group id; default is 1000
-* USERNAME: The daemon execution user name; default is thisuser
-
+* UID: The daemon execution user id; default is 1000;
+* GID: The daemon execution user's group id; default is 1000;
+* USERNAME: The daemon execution user name; default is thisuser;
+* PASSWD: The FTP password of the daemon execution user;
