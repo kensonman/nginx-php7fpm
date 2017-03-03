@@ -17,7 +17,7 @@ RUN \
 && wget -O - https://www.dotdeb.org/dotdeb.gpg | apt-key add - \
 && apt update \
 && echo ">>> Installing the php extension..." \
-&& apt install -y php7.0-fpm php7.0-gd php7.0-curl php7.0-mysql php7.0-imap php-pear postfix \
+&& apt install -y php7.0-fpm php7.0-gd php7.0-curl php7.0-mysql php7.0-imap php-pear php7.0-zip php7.0-intl \
 && echo ">>> Configuring nginx and php..." \
 && sed -i '11atry_files $uri $uri/ /index.php;' /etc/nginx/conf.d/default.conf \
 && sed -i 's/^\(\s\+\)\(index\)/\1\2 index.php/' /etc/nginx/conf.d/default.conf \
@@ -42,20 +42,20 @@ RUN \
 && sed -i -e "\$apasv_min_port=30000" /etc/vsftpd.conf \
 && sed -i -e "\$apasv_max_port=30010" /etc/vsftpd.conf \
 && setcap 'cap_net_bind_service=+ep' /usr/sbin/nginx \
-&& sed -i "s/^user nginx/user ${USERNAME}/g" nginx.conf \
-&& sed -i "s/^user = www-data$/user = ${USERNAME}/g" www.conf \
 && echo ">>> Generating the startup scripts..." \
 && echo "#!/bin/bash" > /startup \
 && echo "echo \"Container Homepage: https://github.com/kensonman/nginx-php7fpm\"" >> /startup \
 && echo "/usr/sbin/vsftpd &" >> /startup \
 && echo "/usr/sbin/php-fpm7.0 -D" >> /startup \
-&& echo "/usr/sbin/service postfix start" >> /startup \
 && echo "/usr/sbin/nginx -g \"daemon off;\"" >> /startup \
 && chown ${USERNAME}:${USERNAME} /startup \
 && chmod +x /startup \
 && echo ">>> Finishing..."
 
+#&& sed -i "s/^user nginx/user ${USERNAME}/g" nginx.conf \
+#&& sed -i "s/^user = www-data$/user = ${USERNAME}/g" www.conf \
+
 #USER ${USERNAME}
-EXPOSE 80, 443, 30000-30010:30000-30010/tcp
+EXPOSE 80 21 30000-30010:30000-30010/tcp
 WORKDIR /usr/share/nginx/html
 CMD ["/startup", ]
